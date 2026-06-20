@@ -1,0 +1,293 @@
+{
+  "info": {
+    "name": "Formbricks API",
+    "description": "REST API for Formbricks, the open-source experience management and survey platform. Management API endpoints require an x-api-key header; the Public Client API is unauthenticated.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.formbricks.com/api"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "environmentId",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "x-api-key" },
+      { "key": "value", "value": "{{apiKey}}" },
+      { "key": "in", "value": "header" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Me",
+      "item": [
+        {
+          "name": "Retrieve account information",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/me", "host": ["{{baseUrl}}"], "path": ["v1", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Surveys",
+      "item": [
+        {
+          "name": "List surveys",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/surveys", "host": ["{{baseUrl}}"], "path": ["v2", "management", "surveys"] }
+          }
+        },
+        {
+          "name": "Create a survey",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"My Survey\",\n  \"type\": \"link\",\n  \"environmentId\": \"{{environmentId}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/management/surveys", "host": ["{{baseUrl}}"], "path": ["v2", "management", "surveys"] }
+          }
+        },
+        {
+          "name": "Get a survey",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/surveys/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "surveys", ":id"] }
+          }
+        },
+        {
+          "name": "Update a survey",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"My Survey (updated)\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/management/surveys/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "surveys", ":id"] }
+          }
+        },
+        {
+          "name": "Delete a survey",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/surveys/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "surveys", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Responses",
+      "item": [
+        {
+          "name": "List responses",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/v2/management/responses?surveyId=",
+              "host": ["{{baseUrl}}"],
+              "path": ["v2", "management", "responses"],
+              "query": [{ "key": "surveyId", "value": "" }]
+            }
+          }
+        },
+        {
+          "name": "Create a response",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"surveyId\": \"\",\n  \"finished\": true,\n  \"data\": { \"question1\": \"answer\" },\n  \"ttc\": { \"question1\": 1200 }\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/management/responses", "host": ["{{baseUrl}}"], "path": ["v2", "management", "responses"] }
+          }
+        },
+        {
+          "name": "Get a response",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/responses/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "responses", ":id"] }
+          }
+        },
+        {
+          "name": "Update a response",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"finished\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/management/responses/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "responses", ":id"] }
+          }
+        },
+        {
+          "name": "Delete a response",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/responses/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "responses", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contacts",
+      "item": [
+        {
+          "name": "List contacts",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/contacts", "host": ["{{baseUrl}}"], "path": ["v2", "management", "contacts"] }
+          }
+        },
+        {
+          "name": "Get a contact",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/contacts/:id", "host": ["{{baseUrl}}"], "path": ["v2", "management", "contacts", ":id"] }
+          }
+        },
+        {
+          "name": "Bulk upsert contacts",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"contacts\": [\n    { \"attributes\": { \"email\": \"user@example.com\", \"plan\": \"pro\" } }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/v2/management/contacts/bulk", "host": ["{{baseUrl}}"], "path": ["v2", "management", "contacts", "bulk"] }
+          }
+        },
+        {
+          "name": "List contact attribute keys",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v2/management/contact-attribute-keys", "host": ["{{baseUrl}}"], "path": ["v2", "management", "contact-attribute-keys"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Action Classes",
+      "item": [
+        {
+          "name": "List action classes",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/management/action-classes", "host": ["{{baseUrl}}"], "path": ["v1", "management", "action-classes"] }
+          }
+        },
+        {
+          "name": "Create an action class",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Button Clicked\",\n  \"type\": \"noCode\",\n  \"environmentId\": \"{{environmentId}}\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/management/action-classes", "host": ["{{baseUrl}}"], "path": ["v1", "management", "action-classes"] }
+          }
+        },
+        {
+          "name": "Delete an action class",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/management/action-classes/:id", "host": ["{{baseUrl}}"], "path": ["v1", "management", "action-classes", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhooks",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/webhooks", "host": ["{{baseUrl}}"], "path": ["v1", "webhooks"] }
+          }
+        },
+        {
+          "name": "Create a webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-api-key", "value": "{{apiKey}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"url\": \"https://example.com/webhook\",\n  \"triggers\": [\"responseFinished\"],\n  \"surveyIds\": []\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/webhooks", "host": ["{{baseUrl}}"], "path": ["v1", "webhooks"] }
+          }
+        },
+        {
+          "name": "Get a webhook",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/webhooks/:id", "host": ["{{baseUrl}}"], "path": ["v1", "webhooks", ":id"] }
+          }
+        },
+        {
+          "name": "Delete a webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "x-api-key", "value": "{{apiKey}}" }],
+            "url": { "raw": "{{baseUrl}}/v1/webhooks/:id", "host": ["{{baseUrl}}"], "path": ["v1", "webhooks", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Client (Public)",
+      "item": [
+        {
+          "name": "Create a display",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"surveyId\": \"\",\n  \"userId\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/client/{{environmentId}}/displays", "host": ["{{baseUrl}}"], "path": ["v1", "client", "{{environmentId}}", "displays"] }
+          }
+        },
+        {
+          "name": "Create a response (Client API)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"surveyId\": \"\",\n  \"finished\": false,\n  \"data\": { \"question1\": \"answer\" }\n}" },
+            "url": { "raw": "{{baseUrl}}/v1/client/{{environmentId}}/responses", "host": ["{{baseUrl}}"], "path": ["v1", "client", "{{environmentId}}", "responses"] }
+          }
+        }
+      ]
+    }
+  ]
+}

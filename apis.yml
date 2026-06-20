@@ -1,0 +1,163 @@
+aid: formbricks
+url: https://raw.githubusercontent.com/api-evangelist/formbricks/refs/heads/main/apis.yml
+name: Formbricks
+kind: company
+description: Formbricks is an open-source experience management and survey platform
+  (a privacy-first Typeform / Qualtrics alternative). Its REST API lets you create
+  and manage surveys, collect and query responses, manage contacts and their
+  attributes, and wire up webhooks, with a Public Client API (no auth) for survey
+  delivery and a Management API authenticated with an x-api-key header.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Surveys
+- Experience Management
+- Feedback
+- Forms
+- Open Source
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: formbricks:surveys
+  name: Formbricks Surveys API
+  tags:
+  - Surveys
+  - Forms
+  - Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://formbricks.com/docs/api-v2-reference
+  baseURL: https://app.formbricks.com/api
+  properties:
+  - url: https://formbricks.com/docs/api-reference/rest-api
+    type: Documentation
+  - url: https://formbricks.com/docs/api-v2-reference
+    type: APIReference
+  - url: openapi/formbricks-openapi.yml
+    type: OpenAPI
+  - url: collections/formbricks.postman_collection.json
+    type: PostmanCollection
+  - url: collections/formbricks.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/formbricks/formbricks
+    type: GitHub
+  description: List, create, retrieve, update, and delete surveys, plus generate
+    single-use survey links, through the Management API under
+    /api/v2/management/surveys.
+- aid: formbricks:responses
+  name: Formbricks Responses API
+  tags:
+  - Responses
+  - Feedback
+  - Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://formbricks.com/docs/api-v2-reference/management-api--responses/get-responses
+  baseURL: https://app.formbricks.com/api
+  properties:
+  - url: https://formbricks.com/docs/api-v2-reference/management-api--responses/create-a-response
+    type: Documentation
+  - url: https://formbricks.com/docs/api-v2-reference
+    type: APIReference
+  - url: openapi/formbricks-openapi.yml
+    type: OpenAPI
+  - url: collections/formbricks.postman_collection.json
+    type: PostmanCollection
+  - url: collections/formbricks.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/formbricks/formbricks
+    type: GitHub
+  description: Create, list, filter by survey, update, and delete survey responses.
+    Responses carry per-question data, time-to-complete (ttc), finished state, and
+    meta (source, url, userAgent, country).
+- aid: formbricks:contacts
+  name: Formbricks Contacts and Attributes API
+  tags:
+  - Contacts
+  - Attributes
+  - Segmentation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://formbricks.com/docs/api-v2-reference
+  baseURL: https://app.formbricks.com/api
+  properties:
+  - url: https://formbricks.com/docs/api-reference/rest-api
+    type: Documentation
+  - url: https://formbricks.com/docs/api-v2-reference
+    type: APIReference
+  - url: openapi/formbricks-openapi.yml
+    type: OpenAPI
+  - url: collections/formbricks.postman_collection.json
+    type: PostmanCollection
+  - url: collections/formbricks.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/formbricks/formbricks
+    type: GitHub
+  description: List and retrieve contacts, bulk-upsert contacts with their
+    attributes, and manage contact attribute keys that define the segmentation
+    schema for an environment.
+- aid: formbricks:webhooks
+  name: Formbricks Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://formbricks.com/docs/developer-docs/webhooks
+  baseURL: https://app.formbricks.com/api
+  properties:
+  - url: https://formbricks.com/docs/developer-docs/webhooks
+    type: Documentation
+  - url: https://formbricks.com/docs/api-v2-reference/management-api--webhooks/get-webhooks
+    type: APIReference
+  - url: openapi/formbricks-openapi.yml
+    type: OpenAPI
+  - url: collections/formbricks.postman_collection.json
+    type: PostmanCollection
+  - url: collections/formbricks.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/formbricks/formbricks
+    type: GitHub
+  description: List, create, and delete webhooks that fire real-time HTTP
+    notifications on responseCreated, responseUpdated, and responseFinished
+    triggers, optionally scoped to specific surveyIds.
+- aid: formbricks:management
+  name: Formbricks Management API
+  tags:
+  - Management
+  - Account
+  - Action Classes
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://formbricks.com/docs/api-v2-reference
+  baseURL: https://app.formbricks.com/api
+  properties:
+  - url: https://formbricks.com/docs/api-reference/rest-api
+    type: Documentation
+  - url: https://formbricks.com/docs/api-v2-reference
+    type: APIReference
+  - url: openapi/formbricks-openapi.yml
+    type: OpenAPI
+  - url: collections/formbricks.postman_collection.json
+    type: PostmanCollection
+  - url: collections/formbricks.opencollection.json
+    type: OpenCollection
+  - url: https://github.com/formbricks/formbricks
+    type: GitHub
+  description: Account and configuration surface - the Me endpoint that returns the
+    environment an API key belongs to, and Action Class management for defining the
+    code and no-code actions that trigger in-product surveys.
+common:
+- type: GitHubOrganization
+  url: https://github.com/formbricks
+- type: LinkedIn
+  url: https://www.linkedin.com/company/formbricks
+- type: Website
+  url: https://www.formbricks.com
+- type: Documentation
+  url: https://formbricks.com/docs
+- type: Plans
+  url: plans/formbricks-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/formbricks-rate-limits.yml
+- type: FinOps
+  url: finops/formbricks-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

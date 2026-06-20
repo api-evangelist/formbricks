@@ -1,0 +1,1068 @@
+openapi: 3.0.1
+info:
+  title: Formbricks API
+  description: >-
+    REST API for Formbricks, the open-source experience management and survey
+    platform. The Management API (paths under /v1/management and /v2/management)
+    requires a personal API key passed in the x-api-key header and gives full
+    access to surveys, responses, contacts, contact attribute keys, action
+    classes, webhooks, and account info. The Public Client API
+    (/v1/client/{environmentId}) is unauthenticated and is used by survey
+    front-ends to create displays and responses.
+  termsOfService: https://formbricks.com/terms
+  contact:
+    name: Formbricks
+    url: https://formbricks.com
+  license:
+    name: AGPL-3.0
+    url: https://github.com/formbricks/formbricks/blob/main/LICENSE
+  version: '2.0'
+servers:
+  - url: https://app.formbricks.com/api
+    description: Formbricks Cloud
+paths:
+  /v1/me:
+    get:
+      operationId: getMe
+      tags:
+        - Me
+      summary: Retrieve account information
+      description: Returns the environment and project that the supplied API key belongs to.
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: Account / environment information for the API key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v2/management/surveys:
+    get:
+      operationId: getSurveys
+      tags:
+        - Surveys
+      summary: List surveys
+      description: Returns a paginated list of surveys in the environment.
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Skip'
+      responses:
+        '200':
+          description: A list of surveys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Survey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSurvey
+      tags:
+        - Surveys
+      summary: Create a survey
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyInput'
+      responses:
+        '201':
+          description: The created survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v2/management/surveys/{id}:
+    parameters:
+      - $ref: '#/components/parameters/SurveyId'
+    get:
+      operationId: getSurvey
+      tags:
+        - Surveys
+      summary: Get a survey
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateSurvey
+      tags:
+        - Surveys
+      summary: Update a survey
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyInput'
+      responses:
+        '200':
+          description: The updated survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSurvey
+      tags:
+        - Surveys
+      summary: Delete a survey
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/management/surveys/{id}/contact-links/segments/{segmentId}:
+    parameters:
+      - $ref: '#/components/parameters/SurveyId'
+      - name: segmentId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getSurveyContactLinks
+      tags:
+        - Surveys
+      summary: Generate single-use survey links for a segment
+      description: >-
+        Returns personalized single-use survey links for every contact in the
+        given segment.
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of personalized survey links.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contactId:
+                          type: string
+                        surveyUrl:
+                          type: string
+                          format: uri
+  /v2/management/responses:
+    get:
+      operationId: getResponses
+      tags:
+        - Responses
+      summary: List responses
+      description: Returns responses, optionally filtered by surveyId.
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: surveyId
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Skip'
+      responses:
+        '200':
+          description: A list of responses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Response'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createResponse
+      tags:
+        - Responses
+      summary: Create a response
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseInput'
+      responses:
+        '201':
+          description: The created response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v2/management/responses/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getResponse
+      tags:
+        - Responses
+      summary: Get a response
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateResponse
+      tags:
+        - Responses
+      summary: Update a response
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseInput'
+      responses:
+        '200':
+          description: The updated response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteResponse
+      tags:
+        - Responses
+      summary: Delete a response
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/management/contacts:
+    get:
+      operationId: getContacts
+      tags:
+        - Contacts
+      summary: List contacts
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Skip'
+      responses:
+        '200':
+          description: A list of contacts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v2/management/contacts/bulk:
+    put:
+      operationId: bulkUpsertContacts
+      tags:
+        - Contacts
+      summary: Bulk create or update contacts
+      description: Upserts up to several hundred contacts and their attributes in one call.
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - contacts
+              properties:
+                contacts:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        additionalProperties:
+                          type: string
+                        description: >-
+                          Key/value attributes keyed by contact attribute key
+                          (must include a userId or email key for identification).
+      responses:
+        '200':
+          description: Bulk upsert result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      processed:
+                        type: integer
+  /v2/management/contacts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getContact
+      tags:
+        - Contacts
+      summary: Get a contact
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested contact.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/management/contact-attribute-keys:
+    get:
+      operationId: getContactAttributeKeys
+      tags:
+        - Contacts
+      summary: List contact attribute keys
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of contact attribute keys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactAttributeKey'
+    post:
+      operationId: createContactAttributeKey
+      tags:
+        - Contacts
+      summary: Create a contact attribute key
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - key
+              properties:
+                key:
+                  type: string
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: The created contact attribute key.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactAttributeKey'
+  /v1/management/action-classes:
+    get:
+      operationId: getActionClasses
+      tags:
+        - Action Classes
+      summary: List action classes
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of action classes.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ActionClass'
+    post:
+      operationId: createActionClass
+      tags:
+        - Action Classes
+      summary: Create an action class
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionClassInput'
+      responses:
+        '201':
+          description: The created action class.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ActionClass'
+  /v1/management/action-classes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      operationId: deleteActionClass
+      tags:
+        - Action Classes
+      summary: Delete an action class
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted action class.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ActionClass'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/webhooks:
+    get:
+      operationId: getWebhooks
+      tags:
+        - Webhooks
+      summary: List webhooks
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Create a webhook
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '201':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v1/webhooks/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getWebhook
+      tags:
+        - Webhooks
+      summary: Get a webhook
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhook
+      tags:
+        - Webhooks
+      summary: Delete a webhook
+      security:
+        - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/client/{environmentId}/displays:
+    parameters:
+      - name: environmentId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: createDisplay
+      tags:
+        - Client
+      summary: Create a display
+      description: >-
+        Public Client API. Marks a survey as displayed for a contact, optionally
+        linking the display to a later response. No API key required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - surveyId
+              properties:
+                surveyId:
+                  type: string
+                userId:
+                  type: string
+      responses:
+        '200':
+          description: The created display id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+  /v1/client/{environmentId}/responses:
+    parameters:
+      - name: environmentId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: createClientResponse
+      tags:
+        - Client
+      summary: Create a response (Client API)
+      description: >-
+        Public Client API used by survey front-ends to submit a response. No API
+        key required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseInput'
+      responses:
+        '200':
+          description: The created response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Personal API key generated in Formbricks under Settings > API Keys.
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+    SurveyId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Me:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          description: The type of object the key is scoped to (e.g. environment).
+        environmentId:
+          type: string
+        projectId:
+          type: string
+        organizationId:
+          type: string
+    Survey:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - link
+            - app
+        environmentId:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - inProgress
+            - paused
+            - completed
+        questions:
+          type: array
+          description: Legacy question list, derived from blocks for backwards compatibility.
+          items:
+            type: object
+        blocks:
+          type: array
+          description: Current block-based survey structure.
+          items:
+            type: object
+        welcomeCard:
+          type: object
+        endings:
+          type: array
+          items:
+            type: object
+    SurveyInput:
+      type: object
+      required:
+        - name
+        - type
+        - environmentId
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - link
+            - app
+        environmentId:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - inProgress
+            - paused
+            - completed
+        questions:
+          type: array
+          items:
+            type: object
+    Response:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        surveyId:
+          type: string
+        displayId:
+          type: string
+          nullable: true
+        singleUseId:
+          type: string
+          nullable: true
+        finished:
+          type: boolean
+        endingId:
+          type: string
+          nullable: true
+        language:
+          type: string
+          nullable: true
+        data:
+          type: object
+          additionalProperties: true
+          description: Map of questionId to the submitted answer.
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+          description: Time-to-complete in ms per question.
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+    ResponseInput:
+      type: object
+      required:
+        - surveyId
+        - data
+      properties:
+        surveyId:
+          type: string
+        finished:
+          type: boolean
+          default: false
+        data:
+          type: object
+          additionalProperties: true
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+        language:
+          type: string
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+    ResponseMeta:
+      type: object
+      properties:
+        source:
+          type: string
+        url:
+          type: string
+        userAgent:
+          type: object
+          additionalProperties: true
+        country:
+          type: string
+        action:
+          type: string
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        environmentId:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+    ContactAttributeKey:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          type: string
+        environmentId:
+          type: string
+    ActionClass:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        type:
+          type: string
+          enum:
+            - code
+            - noCode
+        environmentId:
+          type: string
+    ActionClassInput:
+      type: object
+      required:
+        - name
+        - type
+        - environmentId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+            - code
+            - noCode
+        environmentId:
+          type: string
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+          nullable: true
+        url:
+          type: string
+          format: uri
+        source:
+          type: string
+          default: user
+        environmentId:
+          type: string
+        triggers:
+          type: array
+          items:
+            type: string
+            enum:
+              - responseCreated
+              - responseUpdated
+              - responseFinished
+        surveyIds:
+          type: array
+          items:
+            type: string
+          description: Surveys the webhook is scoped to; empty applies to all surveys.
+    WebhookInput:
+      type: object
+      required:
+        - url
+        - triggers
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        triggers:
+          type: array
+          items:
+            type: string
+            enum:
+              - responseCreated
+              - responseUpdated
+              - responseFinished
+        surveyIds:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+tags:
+  - name: Me
+    description: Account and environment information for an API key.
+  - name: Surveys
+    description: Create and manage surveys.
+  - name: Responses
+    description: Create, query, and manage survey responses.
+  - name: Contacts
+    description: Manage contacts and contact attribute keys.
+  - name: Action Classes
+    description: Define code and no-code actions that trigger in-product surveys.
+  - name: Webhooks
+    description: Real-time HTTP notifications for response events.
+  - name: Client
+    description: Public unauthenticated Client API used by survey front-ends.

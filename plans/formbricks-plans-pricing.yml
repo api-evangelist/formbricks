@@ -1,0 +1,177 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Formbricks
+providerId: formbricks
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Surveys
+- Experience Management
+- Feedback
+- Forms
+- Open Source
+- Plans
+description: >-
+  Formbricks is dual-licensed: a free, open-source Community Edition you can
+  self-host under AGPLv3 with no response or contact caps, and a managed
+  Formbricks Cloud with tiered monthly plans (Hobby/Free, Pro, Scale, and
+  Enterprise) that meter on monthly responses and bundle progressively more
+  collaboration, segmentation, and governance features. Full REST API access
+  is included on every tier, including the free plan.
+notes: >-
+  Cloud prices and monthly response limits are as published on the Formbricks
+  pricing page and change over time; verify current figures at
+  https://formbricks.com/pricing during reconciliation. Self-hosting the
+  Community Edition has no license fee (AGPLv3) but you operate your own
+  infrastructure.
+sources:
+- https://formbricks.com/pricing
+- https://formbricks.com/docs
+- https://github.com/formbricks/formbricks
+plans:
+- id: formbricks-self-hosted
+  name: Community Edition (Self-Hosted)
+  type: free
+  description: >-
+    Open-source Formbricks self-hosted under AGPLv3. Unlimited surveys,
+    responses, and contacts; you provide the infrastructure. Full REST API.
+  entries:
+  - label: Self-Hosted Responses
+    name: self_hosted_responses
+    type: free
+    metric: responses
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (AGPLv3, self-operated infrastructure)
+    userMultiplied: false
+  elements:
+  - name: Unlimited Surveys
+  - name: Unlimited Responses
+  - name: Unlimited Contacts
+  - name: Full REST API
+  - name: Webhooks
+- id: formbricks-hobby
+  name: Hobby
+  type: free
+  description: >-
+    Free Formbricks Cloud tier with 1 workspace and 250 responses per month,
+    including link and in-product surveys, all question types, and full API
+    access.
+  entries:
+  - label: Monthly Responses
+    name: hobby_responses
+    type: included
+    metric: responses
+    limit: 250
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  elements:
+  - name: Link and In-Product Surveys
+  - name: All Question Types and Logic
+  - name: File Uploads
+  - name: Single-Use Links
+  - name: Full REST API
+- id: formbricks-pro
+  name: Pro
+  type: paid
+  description: >-
+    Paid Cloud tier at $74/month with 3 workspaces and 2,000 responses per
+    month, adding unlimited team seats, contact and segment management, custom
+    webhooks, mobile SDKs, and Formbricks branding removal.
+  entries:
+  - label: Subscription
+    name: pro_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $74/month (annual discount ~17%)
+    userMultiplied: false
+  - label: Monthly Responses
+    name: pro_responses
+    type: included
+    metric: responses
+    limit: 2000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Unlimited Team Seats
+  - name: Remove Formbricks Branding
+  - name: Contact and Segment Management
+  - name: Attribute-Based Segmentation
+  - name: Custom Webhooks
+  - name: iOS and Android SDKs
+  - name: All Integrations
+- id: formbricks-scale
+  name: Scale
+  type: paid
+  description: >-
+    Paid Cloud tier at $325/month with 5 workspaces and 5,000 responses per
+    month, adding teams and access roles, quota management, AI topic labeling,
+    custom dashboards, 2FA, and spam protection.
+  entries:
+  - label: Subscription
+    name: scale_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $325/month (annual discount ~17%)
+    userMultiplied: false
+  - label: Monthly Responses
+    name: scale_responses
+    type: included
+    metric: responses
+    limit: 5000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Teams and Access Roles
+  - name: Quota Management
+  - name: AI Topic Labeling
+  - name: Custom Dashboards and Charts
+  - name: Two-Factor Authentication
+  - name: Spam Protection (reCAPTCHA)
+- id: formbricks-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom Cloud or self-managed Enterprise agreements with higher response
+    volumes, SSO/SAML, SLAs, dedicated support, and negotiated terms. Contact
+    Formbricks sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Response Volume
+  - name: SSO / SAML
+  - name: SLAs and Dedicated Support
+  - name: Self-Managed Enterprise License
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

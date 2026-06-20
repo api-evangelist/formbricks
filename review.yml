@@ -1,0 +1,92 @@
+aid: formbricks
+name: Formbricks
+review:
+  question: Does Formbricks expose a documented public WebSocket or streaming API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Formbricks has no documented WebSocket or
+    HTTP streaming (SSE) API surface. Its real-time, event-driven surface is
+    outbound webhooks (HTTP POST callbacks), which are modeled as REST in the
+    OpenAPI document and described under findings.webhooks below.
+findings:
+  summary: |
+    Formbricks does not publish a documented public WebSocket or Server-Sent
+    Events API. The platform exposes a REST Management API (authenticated with
+    an x-api-key header) under https://app.formbricks.com/api/v2/management and
+    https://app.formbricks.com/api/v1, plus an unauthenticated Public Client
+    API under /api/v1/client/{environmentId}. Real-time integration is achieved
+    through outbound webhooks: Formbricks sends an HTTP POST to a subscriber URL
+    on responseCreated, responseUpdated, and responseFinished events. There is
+    no ws:// or wss:// endpoint and no documented SSE stream.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.formbricks.com/api
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST callbacks to a subscriber URL on response events. Not a client-consumed stream.
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events stream is documented.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Formbricks API reference or developer docs as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://app.formbricks.com/api/v1/me
+    - GET    https://app.formbricks.com/api/v2/management/surveys
+    - POST   https://app.formbricks.com/api/v2/management/surveys
+    - GET    https://app.formbricks.com/api/v2/management/surveys/{id}
+    - PUT    https://app.formbricks.com/api/v2/management/surveys/{id}
+    - DELETE https://app.formbricks.com/api/v2/management/surveys/{id}
+    - GET    https://app.formbricks.com/api/v2/management/responses
+    - POST   https://app.formbricks.com/api/v2/management/responses
+    - GET    https://app.formbricks.com/api/v2/management/responses/{id}
+    - PUT    https://app.formbricks.com/api/v2/management/responses/{id}
+    - DELETE https://app.formbricks.com/api/v2/management/responses/{id}
+    - GET    https://app.formbricks.com/api/v2/management/contacts
+    - GET    https://app.formbricks.com/api/v2/management/contacts/{id}
+    - PUT    https://app.formbricks.com/api/v2/management/contacts/bulk
+    - GET    https://app.formbricks.com/api/v2/management/contact-attribute-keys
+    - GET    https://app.formbricks.com/api/v1/management/action-classes
+    - POST   https://app.formbricks.com/api/v1/management/action-classes
+    - DELETE https://app.formbricks.com/api/v1/management/action-classes/{id}
+    - GET    https://app.formbricks.com/api/v1/webhooks
+    - POST   https://app.formbricks.com/api/v1/webhooks
+    - GET    https://app.formbricks.com/api/v1/webhooks/{id}
+    - DELETE https://app.formbricks.com/api/v1/webhooks/{id}
+    - POST   https://app.formbricks.com/api/v1/client/{environmentId}/displays
+    - POST   https://app.formbricks.com/api/v1/client/{environmentId}/responses
+  webhooks:
+    triggers:
+      - responseCreated
+      - responseUpdated
+      - responseFinished
+    note: |
+      Webhooks are created via POST /api/v1/webhooks with url, triggers, and
+      optional surveyIds (empty applies to all surveys). Formbricks then POSTs
+      response payloads to the subscriber URL when the chosen triggers fire.
+sources:
+  - url: https://formbricks.com/docs/api-reference/rest-api
+    type: Documentation
+    note: Lists the Public Client API and Management API endpoint groups; all HTTPS REST.
+  - url: https://formbricks.com/docs/api-v2-reference
+    type: APIReference
+    note: v2 Management API reference; all documented operations are HTTPS REST with x-api-key auth.
+  - url: https://formbricks.com/docs/developer-docs/webhooks
+    type: Documentation
+    note: Webhooks fire on responseCreated, responseUpdated, responseFinished; outbound HTTP POST, not a stream.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE protocol surface exists. The event-driven surface is
+    outbound webhooks, which are represented in the OpenAPI document and the
+    apis.yml Webhooks API entry. No AsyncAPI document was authored because there
+    is no client-consumed streaming channel to model.

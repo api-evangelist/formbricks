@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Formbricks API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "x-api-key",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Me", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Retrieve account information", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v1/me" },
+          "docs": "Returns the environment and project the API key belongs to."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Surveys", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List surveys", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/surveys" },
+          "docs": "List surveys in the environment."
+        },
+        {
+          "info": { "name": "Create a survey", "type": "http" },
+          "http": { "method": "POST", "url": "https://app.formbricks.com/api/v2/management/surveys", "body": { "type": "json", "data": "{\"name\":\"My Survey\",\"type\":\"link\",\"environmentId\":\"\"}" } },
+          "docs": "Create a survey."
+        },
+        {
+          "info": { "name": "Get a survey", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/surveys/:id" },
+          "docs": "Retrieve a survey by id."
+        },
+        {
+          "info": { "name": "Update a survey", "type": "http" },
+          "http": { "method": "PUT", "url": "https://app.formbricks.com/api/v2/management/surveys/:id", "body": { "type": "json", "data": "{\"name\":\"My Survey (updated)\"}" } },
+          "docs": "Update a survey by id."
+        },
+        {
+          "info": { "name": "Delete a survey", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://app.formbricks.com/api/v2/management/surveys/:id" },
+          "docs": "Delete a survey by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Responses", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List responses", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/responses?surveyId=" },
+          "docs": "List responses, optionally filtered by surveyId."
+        },
+        {
+          "info": { "name": "Create a response", "type": "http" },
+          "http": { "method": "POST", "url": "https://app.formbricks.com/api/v2/management/responses", "body": { "type": "json", "data": "{\"surveyId\":\"\",\"finished\":true,\"data\":{\"question1\":\"answer\"},\"ttc\":{\"question1\":1200}}" } },
+          "docs": "Create a response with per-question data and ttc."
+        },
+        {
+          "info": { "name": "Get a response", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/responses/:id" },
+          "docs": "Retrieve a response by id."
+        },
+        {
+          "info": { "name": "Update a response", "type": "http" },
+          "http": { "method": "PUT", "url": "https://app.formbricks.com/api/v2/management/responses/:id", "body": { "type": "json", "data": "{\"finished\":true}" } },
+          "docs": "Update a response by id."
+        },
+        {
+          "info": { "name": "Delete a response", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://app.formbricks.com/api/v2/management/responses/:id" },
+          "docs": "Delete a response by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Contacts", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List contacts", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/contacts" },
+          "docs": "List contacts in the environment."
+        },
+        {
+          "info": { "name": "Get a contact", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/contacts/:id" },
+          "docs": "Retrieve a contact by id."
+        },
+        {
+          "info": { "name": "Bulk upsert contacts", "type": "http" },
+          "http": { "method": "PUT", "url": "https://app.formbricks.com/api/v2/management/contacts/bulk", "body": { "type": "json", "data": "{\"contacts\":[{\"attributes\":{\"email\":\"user@example.com\",\"plan\":\"pro\"}}]}" } },
+          "docs": "Bulk create or update contacts with attributes."
+        },
+        {
+          "info": { "name": "List contact attribute keys", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v2/management/contact-attribute-keys" },
+          "docs": "List the contact attribute keys defining the segmentation schema."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Action Classes", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List action classes", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v1/management/action-classes" },
+          "docs": "List action classes."
+        },
+        {
+          "info": { "name": "Create an action class", "type": "http" },
+          "http": { "method": "POST", "url": "https://app.formbricks.com/api/v1/management/action-classes", "body": { "type": "json", "data": "{\"name\":\"Button Clicked\",\"type\":\"noCode\",\"environmentId\":\"\"}" } },
+          "docs": "Create a code or no-code action class."
+        },
+        {
+          "info": { "name": "Delete an action class", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://app.formbricks.com/api/v1/management/action-classes/:id" },
+          "docs": "Delete an action class by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List webhooks", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v1/webhooks" },
+          "docs": "List webhooks in the environment."
+        },
+        {
+          "info": { "name": "Create a webhook", "type": "http" },
+          "http": { "method": "POST", "url": "https://app.formbricks.com/api/v1/webhooks", "body": { "type": "json", "data": "{\"url\":\"https://example.com/webhook\",\"triggers\":[\"responseFinished\"],\"surveyIds\":[]}" } },
+          "docs": "Create a webhook for responseCreated/responseUpdated/responseFinished."
+        },
+        {
+          "info": { "name": "Get a webhook", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.formbricks.com/api/v1/webhooks/:id" },
+          "docs": "Retrieve a webhook by id."
+        },
+        {
+          "info": { "name": "Delete a webhook", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://app.formbricks.com/api/v1/webhooks/:id" },
+          "docs": "Delete a webhook by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Client (Public)", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a display", "type": "http" },
+          "http": { "method": "POST", "url": "https://app.formbricks.com/api/v1/client/:environmentId/displays", "body": { "type": "json", "data": "{\"surveyId\":\"\",\"userId\":\"\"}" } },
+          "docs": "Public Client API: mark a survey as displayed. No API key required."
+        },
+        {
+          "info": { "name": "Create a response (Client API)", "type": "http" },
+          "http": { "method": "POST", "url": "https://app.formbricks.com/api/v1/client/:environmentId/responses", "body": { "type": "json", "data": "{\"surveyId\":\"\",\"finished\":false,\"data\":{\"question1\":\"answer\"}}" } },
+          "docs": "Public Client API: submit a survey response. No API key required."
+        }
+      ]
+    }
+  ]
+}

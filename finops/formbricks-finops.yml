@@ -1,0 +1,106 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Formbricks
+providerId: formbricks
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Surveys
+- Experience Management
+- Feedback
+- Forms
+- Open Source
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Formbricks spend. Formbricks Cloud bills a flat monthly
+  subscription per plan (Hobby free, Pro, Scale) with a bundled monthly
+  response allowance and per-workspace and per-feature gating; Enterprise is a
+  negotiated contract. The open-source Community Edition has no license fee
+  (AGPLv3) and shifts cost to self-hosted infrastructure (compute, database,
+  object storage, and operations). The primary cost driver on Cloud is the
+  monthly response volume relative to plan tier.
+notes: >-
+  Subscription prices and response allowances are subject to change; verify
+  against the Formbricks pricing page during reconciliation. Self-hosted cost
+  is infrastructure-and-ops driven, not a Formbricks invoice.
+sources:
+- https://formbricks.com/pricing
+- https://formbricks.com/docs
+- https://github.com/formbricks/formbricks
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Formbricks
+serviceCategory: Analytics and Experience Management
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Formbricks Cloud
+  ServiceCategory: Analytics and Experience Management
+  ProviderName: Formbricks
+  PublisherName: Formbricks
+  InvoiceIssuerName: Formbricks
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: plan_subscription
+  description: Flat monthly subscription fee for the active Cloud plan (Pro, Scale).
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: monthly_responses
+  description: Survey responses collected in the billing month, measured against the plan allowance.
+  unit: responses
+  aggregation: sum
+  dimensions:
+  - account
+  - survey
+  - environment
+- name: workspaces
+  description: Workspaces in use, capped per plan (1 Hobby, 3 Pro, 5 Scale).
+  unit: workspaces
+  aggregation: max
+  dimensions:
+  - account
+- name: contacts
+  description: Identified contacts under management, used for segmentation on paid plans.
+  unit: contacts
+  aggregation: max
+  dimensions:
+  - account
+  - environment
+- name: self_hosted_infrastructure
+  description: Compute, database, and object-storage cost of operating the self-hosted Community Edition.
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - deployment
+principles:
+- name: Visibility
+  description: Track monthly response volume per environment against the plan allowance to anticipate overage or upgrade triggers.
+- name: Allocation
+  description: Use workspaces and environments to map survey programs to teams and cost centers.
+- name: Optimization
+  description: Self-host the AGPLv3 Community Edition for high-volume, cost-sensitive use; on Cloud, right-size the plan to actual monthly response volume and consolidate workspaces.
+- name: Accountability
+  description: Assign owners per workspace/survey program and review response volume and plan fit monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

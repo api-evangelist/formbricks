@@ -1,0 +1,73 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Formbricks
+providerId: formbricks
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Surveys
+- Experience Management
+- Feedback
+- Forms
+- Open Source
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Formbricks Cloud applies per-IP and per-key rate limiting to its public
+  endpoints (sign-up, login, and verification flows) and the Management and
+  Client APIs to protect the shared multi-tenant platform; throttled requests
+  return HTTP 429. The dominant quota for most users is the monthly response
+  limit tied to the billing plan (250 on Hobby, 2,000 on Pro, 5,000 on Scale,
+  custom on Enterprise) rather than a request-per-second ceiling. Self-hosted
+  Community Edition deployments are governed only by limits the operator
+  configures (the project exposes RATE_LIMITING_DISABLED and related
+  environment variables). Specific per-endpoint request thresholds are not
+  reconciled in this artifact.
+notes: >-
+  Verify current per-endpoint request limits and any documented 429 behavior in
+  Formbricks documentation and source during reconciliation; the platform's
+  rate-limiting is configurable via environment variables in self-hosted
+  installs and managed centrally on Formbricks Cloud.
+sources:
+- https://formbricks.com/docs
+- https://formbricks.com/pricing
+- https://github.com/formbricks/formbricks
+responseCodes:
+  throttled: 429
+limits:
+- name: Monthly Responses (plan quota)
+  scope: account
+  metric: responses
+  limit: 250 (Hobby) / 2000 (Pro) / 5000 (Scale) / custom (Enterprise)
+  notes: Primary usage cap; resets monthly per the billing plan.
+- name: Authentication and Public Endpoints
+  scope: ip
+  metric: requests
+  limit: see provider documentation
+  notes: Sign-up, login, and verification endpoints are rate-limited per IP to prevent abuse.
+- name: Management API
+  scope: apiKey
+  metric: requests
+  limit: see provider documentation
+  notes: Per-key request limiting on app.formbricks.com/api/v2/management endpoints.
+- name: Client API
+  scope: ip
+  metric: requests
+  limit: see provider documentation
+  notes: Unauthenticated display/response submission endpoints are rate-limited per IP.
+- name: Self-Hosted
+  scope: deployment
+  metric: requests
+  limit: operator-configured
+  notes: Community Edition rate limiting is configurable (e.g. RATE_LIMITING_DISABLED) by the self-host operator.
+policies:
+- name: Plan-Based Quotas
+  description: Monthly response allowances scale with the Hobby, Pro, Scale, and Enterprise plans.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor 429 responses on the authentication and API surfaces.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
