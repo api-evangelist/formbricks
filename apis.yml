@@ -144,6 +144,10 @@ apis:
     environment an API key belongs to, and Action Class management for defining the
     code and no-code actions that trigger in-product surveys.
 common:
+- type: DomainSecurity
+  url: security/formbricks-domain-security.yml
+- type: Authentication
+  url: authentication/formbricks-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/formbricks
 - type: LinkedIn
@@ -158,6 +162,8 @@ common:
   url: rate-limits/formbricks-rate-limits.yml
 - type: FinOps
   url: finops/formbricks-finops.yml
+- url: https://formbricks.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
