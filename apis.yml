@@ -144,6 +144,8 @@ apis:
     environment an API key belongs to, and Action Class management for defining the
     code and no-code actions that trigger in-product surveys.
 common:
+- type: AgenticAccess
+  url: agentic-access/formbricks-agentic-access.yml
 - type: DomainSecurity
   url: security/formbricks-domain-security.yml
 - type: Authentication
