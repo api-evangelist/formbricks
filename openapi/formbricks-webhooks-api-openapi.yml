@@ -1,0 +1,198 @@
+openapi: 3.0.1
+info:
+  title: Formbricks Action Classes Webhooks API
+  description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
+  termsOfService: https://formbricks.com/terms
+  contact:
+    name: Formbricks
+    url: https://formbricks.com
+  license:
+    name: AGPL-3.0
+    url: https://github.com/formbricks/formbricks/blob/main/LICENSE
+  version: '2.0'
+servers:
+- url: https://app.formbricks.com/api
+  description: Formbricks Cloud
+tags:
+- name: Webhooks
+  description: Real-time HTTP notifications for response events.
+paths:
+  /v1/webhooks:
+    get:
+      operationId: getWebhooks
+      tags:
+      - Webhooks
+      summary: List webhooks
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a webhook
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '201':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v1/webhooks/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getWebhook
+      tags:
+      - Webhooks
+      summary: Get a webhook
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhook
+      tags:
+      - Webhooks
+      summary: Delete a webhook
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Webhook'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+          nullable: true
+        url:
+          type: string
+          format: uri
+        source:
+          type: string
+          default: user
+        environmentId:
+          type: string
+        triggers:
+          type: array
+          items:
+            type: string
+            enum:
+            - responseCreated
+            - responseUpdated
+            - responseFinished
+        surveyIds:
+          type: array
+          items:
+            type: string
+          description: Surveys the webhook is scoped to; empty applies to all surveys.
+    WebhookInput:
+      type: object
+      required:
+      - url
+      - triggers
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        triggers:
+          type: array
+          items:
+            type: string
+            enum:
+            - responseCreated
+            - responseUpdated
+            - responseFinished
+        surveyIds:
+          type: array
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Personal API key generated in Formbricks under Settings > API Keys.

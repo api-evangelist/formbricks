@@ -1,0 +1,300 @@
+openapi: 3.0.1
+info:
+  title: Formbricks Action Classes Surveys API
+  description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
+  termsOfService: https://formbricks.com/terms
+  contact:
+    name: Formbricks
+    url: https://formbricks.com
+  license:
+    name: AGPL-3.0
+    url: https://github.com/formbricks/formbricks/blob/main/LICENSE
+  version: '2.0'
+servers:
+- url: https://app.formbricks.com/api
+  description: Formbricks Cloud
+tags:
+- name: Surveys
+  description: Create and manage surveys.
+paths:
+  /v2/management/surveys:
+    get:
+      operationId: getSurveys
+      tags:
+      - Surveys
+      summary: List surveys
+      description: Returns a paginated list of surveys in the environment.
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Skip'
+      responses:
+        '200':
+          description: A list of surveys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Survey'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSurvey
+      tags:
+      - Surveys
+      summary: Create a survey
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyInput'
+      responses:
+        '201':
+          description: The created survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v2/management/surveys/{id}:
+    parameters:
+    - $ref: '#/components/parameters/SurveyId'
+    get:
+      operationId: getSurvey
+      tags:
+      - Surveys
+      summary: Get a survey
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateSurvey
+      tags:
+      - Surveys
+      summary: Update a survey
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SurveyInput'
+      responses:
+        '200':
+          description: The updated survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSurvey
+      tags:
+      - Surveys
+      summary: Delete a survey
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted survey.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Survey'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/management/surveys/{id}/contact-links/segments/{segmentId}:
+    parameters:
+    - $ref: '#/components/parameters/SurveyId'
+    - name: segmentId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getSurveyContactLinks
+      tags:
+      - Surveys
+      summary: Generate single-use survey links for a segment
+      description: Returns personalized single-use survey links for every contact in the given segment.
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of personalized survey links.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contactId:
+                          type: string
+                        surveyUrl:
+                          type: string
+                          format: uri
+components:
+  responses:
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    SurveyId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Survey:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - app
+        environmentId:
+          type: string
+        status:
+          type: string
+          enum:
+          - draft
+          - inProgress
+          - paused
+          - completed
+        questions:
+          type: array
+          description: Legacy question list, derived from blocks for backwards compatibility.
+          items:
+            type: object
+        blocks:
+          type: array
+          description: Current block-based survey structure.
+          items:
+            type: object
+        welcomeCard:
+          type: object
+        endings:
+          type: array
+          items:
+            type: object
+    SurveyInput:
+      type: object
+      required:
+      - name
+      - type
+      - environmentId
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - app
+        environmentId:
+          type: string
+        status:
+          type: string
+          enum:
+          - draft
+          - inProgress
+          - paused
+          - completed
+        questions:
+          type: array
+          items:
+            type: object
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Personal API key generated in Formbricks under Settings > API Keys.

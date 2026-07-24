@@ -1,0 +1,243 @@
+openapi: 3.0.1
+info:
+  title: Formbricks Action Classes Contacts API
+  description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
+  termsOfService: https://formbricks.com/terms
+  contact:
+    name: Formbricks
+    url: https://formbricks.com
+  license:
+    name: AGPL-3.0
+    url: https://github.com/formbricks/formbricks/blob/main/LICENSE
+  version: '2.0'
+servers:
+- url: https://app.formbricks.com/api
+  description: Formbricks Cloud
+tags:
+- name: Contacts
+  description: Manage contacts and contact attribute keys.
+paths:
+  /v2/management/contacts:
+    get:
+      operationId: getContacts
+      tags:
+      - Contacts
+      summary: List contacts
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Skip'
+      responses:
+        '200':
+          description: A list of contacts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Contact'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v2/management/contacts/bulk:
+    put:
+      operationId: bulkUpsertContacts
+      tags:
+      - Contacts
+      summary: Bulk create or update contacts
+      description: Upserts up to several hundred contacts and their attributes in one call.
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - contacts
+              properties:
+                contacts:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      attributes:
+                        type: object
+                        additionalProperties:
+                          type: string
+                        description: Key/value attributes keyed by contact attribute key (must include a userId or email key for identification).
+      responses:
+        '200':
+          description: Bulk upsert result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      processed:
+                        type: integer
+  /v2/management/contacts/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getContact
+      tags:
+      - Contacts
+      summary: Get a contact
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested contact.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Contact'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v2/management/contact-attribute-keys:
+    get:
+      operationId: getContactAttributeKeys
+      tags:
+      - Contacts
+      summary: List contact attribute keys
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: A list of contact attribute keys.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ContactAttributeKey'
+    post:
+      operationId: createContactAttributeKey
+      tags:
+      - Contacts
+      summary: Create a contact attribute key
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - key
+              properties:
+                key:
+                  type: string
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '201':
+          description: The created contact attribute key.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ContactAttributeKey'
+components:
+  responses:
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+  schemas:
+    ContactAttributeKey:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        type:
+          type: string
+        environmentId:
+          type: string
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        environmentId:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Personal API key generated in Formbricks under Settings > API Keys.

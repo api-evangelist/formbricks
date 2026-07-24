@@ -1,0 +1,276 @@
+openapi: 3.0.1
+info:
+  title: Formbricks Action Classes Responses API
+  description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
+  termsOfService: https://formbricks.com/terms
+  contact:
+    name: Formbricks
+    url: https://formbricks.com
+  license:
+    name: AGPL-3.0
+    url: https://github.com/formbricks/formbricks/blob/main/LICENSE
+  version: '2.0'
+servers:
+- url: https://app.formbricks.com/api
+  description: Formbricks Cloud
+tags:
+- name: Responses
+  description: Create, query, and manage survey responses.
+paths:
+  /v2/management/responses:
+    get:
+      operationId: getResponses
+      tags:
+      - Responses
+      summary: List responses
+      description: Returns responses, optionally filtered by surveyId.
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: surveyId
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Skip'
+      responses:
+        '200':
+          description: A list of responses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Response'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createResponse
+      tags:
+      - Responses
+      summary: Create a response
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseInput'
+      responses:
+        '201':
+          description: The created response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /v2/management/responses/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getResponse
+      tags:
+      - Responses
+      summary: Get a response
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The requested response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateResponse
+      tags:
+      - Responses
+      summary: Update a response
+      security:
+      - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseInput'
+      responses:
+        '200':
+          description: The updated response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteResponse
+      tags:
+      - Responses
+      summary: Delete a response
+      security:
+      - apiKeyAuth: []
+      responses:
+        '200':
+          description: The deleted response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Response:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        surveyId:
+          type: string
+        displayId:
+          type: string
+          nullable: true
+        singleUseId:
+          type: string
+          nullable: true
+        finished:
+          type: boolean
+        endingId:
+          type: string
+          nullable: true
+        language:
+          type: string
+          nullable: true
+        data:
+          type: object
+          additionalProperties: true
+          description: Map of questionId to the submitted answer.
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+          description: Time-to-complete in ms per question.
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+    ResponseMeta:
+      type: object
+      properties:
+        source:
+          type: string
+        url:
+          type: string
+        userAgent:
+          type: object
+          additionalProperties: true
+        country:
+          type: string
+        action:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    ResponseInput:
+      type: object
+      required:
+      - surveyId
+      - data
+      properties:
+        surveyId:
+          type: string
+        finished:
+          type: boolean
+          default: false
+        data:
+          type: object
+          additionalProperties: true
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+        language:
+          type: string
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+  responses:
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Personal API key generated in Formbricks under Settings > API Keys.

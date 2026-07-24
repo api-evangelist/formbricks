@@ -1,0 +1,175 @@
+openapi: 3.0.1
+info:
+  title: Formbricks Action Classes Client API
+  description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
+  termsOfService: https://formbricks.com/terms
+  contact:
+    name: Formbricks
+    url: https://formbricks.com
+  license:
+    name: AGPL-3.0
+    url: https://github.com/formbricks/formbricks/blob/main/LICENSE
+  version: '2.0'
+servers:
+- url: https://app.formbricks.com/api
+  description: Formbricks Cloud
+tags:
+- name: Client
+  description: Public unauthenticated Client API used by survey front-ends.
+paths:
+  /v1/client/{environmentId}/displays:
+    parameters:
+    - name: environmentId
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: createDisplay
+      tags:
+      - Client
+      summary: Create a display
+      description: Public Client API. Marks a survey as displayed for a contact, optionally linking the display to a later response. No API key required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - surveyId
+              properties:
+                surveyId:
+                  type: string
+                userId:
+                  type: string
+      responses:
+        '200':
+          description: The created display id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+  /v1/client/{environmentId}/responses:
+    parameters:
+    - name: environmentId
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: createClientResponse
+      tags:
+      - Client
+      summary: Create a response (Client API)
+      description: Public Client API used by survey front-ends to submit a response. No API key required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseInput'
+      responses:
+        '200':
+          description: The created response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Response'
+components:
+  schemas:
+    ResponseMeta:
+      type: object
+      properties:
+        source:
+          type: string
+        url:
+          type: string
+        userAgent:
+          type: object
+          additionalProperties: true
+        country:
+          type: string
+        action:
+          type: string
+    Response:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        surveyId:
+          type: string
+        displayId:
+          type: string
+          nullable: true
+        singleUseId:
+          type: string
+          nullable: true
+        finished:
+          type: boolean
+        endingId:
+          type: string
+          nullable: true
+        language:
+          type: string
+          nullable: true
+        data:
+          type: object
+          additionalProperties: true
+          description: Map of questionId to the submitted answer.
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+          description: Time-to-complete in ms per question.
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+    ResponseInput:
+      type: object
+      required:
+      - surveyId
+      - data
+      properties:
+        surveyId:
+          type: string
+        finished:
+          type: boolean
+          default: false
+        data:
+          type: object
+          additionalProperties: true
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+        language:
+          type: string
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Personal API key generated in Formbricks under Settings > API Keys.
