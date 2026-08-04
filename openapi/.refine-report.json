@@ -1,0 +1,26 @@
+{
+  "provider": "formbricks",
+  "sources": [
+    "formbricks-action-classes-api-openapi.yml",
+    "formbricks-client-api-openapi.yml",
+    "formbricks-contacts-api-openapi.yml",
+    "formbricks-me-api-openapi.yml",
+    "formbricks-responses-api-openapi.yml",
+    "formbricks-surveys-api-openapi.yml",
+    "formbricks-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "formbricks-action-classes-api-openapi.yml",
+    "formbricks-client-api-openapi.yml",
+    "formbricks-contacts-api-openapi.yml",
+    "formbricks-me-api-openapi.yml",
+    "formbricks-responses-api-openapi.yml",
+    "formbricks-surveys-api-openapi.yml",
+    "formbricks-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
