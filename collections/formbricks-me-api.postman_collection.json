@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "b0cd48ec-0f6b-4e01-876a-330d375d7d4c",
+      "name": "Me",
+      "description": {
+        "content": "Account and environment information for an API key.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f6c96b80-2dae-4079-b184-dfad2abb9947",
+          "name": "Retrieve account information",
+          "request": {
+            "name": "Retrieve account information",
+            "description": {
+              "content": "Returns the environment and project that the supplied API key belongs to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "774eb841-8ff6-425f-b221-acd59e274b9f",
+              "name": "Account / environment information for the API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"environmentId\": \"string\",\n  \"projectId\": \"string\",\n  \"organizationId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3eede9fe-5ca2-42b9-8880-378f810998b1",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": \"string\",\n    \"key_1\": 5543.986770763033,\n    \"key_2\": true,\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.formbricks.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b604f909-edd0-431c-8e33-9977edc42f7f",
+    "name": "Formbricks Action Classes Me API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.\n\nContact Support:\n Name: Formbricks",
+      "type": "text/plain"
+    }
+  }
+}

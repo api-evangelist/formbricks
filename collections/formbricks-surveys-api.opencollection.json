@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Formbricks Action Classes Surveys API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Surveys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List surveys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.formbricks.com/api/v2/management/surveys",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to skip for pagination."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a paginated list of surveys in the environment."
+        },
+        {
+          "info": {
+            "name": "Create a survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.formbricks.com/api/v2/management/surveys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a survey"
+        },
+        {
+          "info": {
+            "name": "Get a survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.formbricks.com/api/v2/management/surveys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a survey"
+        },
+        {
+          "info": {
+            "name": "Update a survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://app.formbricks.com/api/v2/management/surveys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a survey"
+        },
+        {
+          "info": {
+            "name": "Delete a survey",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://app.formbricks.com/api/v2/management/surveys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a survey"
+        },
+        {
+          "info": {
+            "name": "Generate single-use survey links for a segment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://app.formbricks.com/api/v2/management/surveys/:id/contact-links/segments/:segmentId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "segmentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns personalized single-use survey links for every contact in the given segment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

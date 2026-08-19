@@ -1,0 +1,258 @@
+{
+  "item": [
+    {
+      "id": "33595473-8e92-48a6-a344-2af903781290",
+      "name": "Client",
+      "description": {
+        "content": "Public unauthenticated Client API used by survey front-ends.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "39a47dad-ef22-41d2-8eb8-d2671514bded",
+          "name": "Create a display",
+          "request": {
+            "name": "Create a display",
+            "description": {
+              "content": "Public Client API. Marks a survey as displayed for a contact, optionally linking the display to a later response. No API key required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "client",
+                ":environmentId",
+                "displays"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "environmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"surveyId\": \"<string>\",\n  \"userId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c00c57a9-d306-4a55-b66f-6bea9afecff3",
+              "name": "The created display id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "client",
+                    ":environmentId",
+                    "displays"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "environmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"surveyId\": \"<string>\",\n  \"userId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bfd8a9e-5655-4d5a-b5d4-3aa8b8c5ef10",
+          "name": "Create a response (Client API)",
+          "request": {
+            "name": "Create a response (Client API)",
+            "description": {
+              "content": "Public Client API used by survey front-ends to submit a response. No API key required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "client",
+                ":environmentId",
+                "responses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "environmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": 2005.8302183943522\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": 1073.025926264738\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b65747df-788a-4554-a718-5d7b73014048",
+              "name": "The created response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "client",
+                    ":environmentId",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "environmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\"\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": 8573.689524549394\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"createdAt\": \"2001-03-09T00:50:30.324Z\",\n    \"updatedAt\": \"2023-07-24T19:54:26.677Z\",\n    \"surveyId\": \"string\",\n    \"displayId\": \"string\",\n    \"singleUseId\": \"string\",\n    \"finished\": false,\n    \"endingId\": \"string\",\n    \"language\": \"string\",\n    \"data\": {\n      \"key_0\": \"string\"\n    },\n    \"variables\": {\n      \"key_0\": true,\n      \"key_1\": false\n    },\n    \"ttc\": {\n      \"key_0\": 6889.600187723105,\n      \"key_1\": 553.7087746948466,\n      \"key_2\": 5709.798431234484\n    },\n    \"meta\": {\n      \"source\": \"<string>\",\n      \"url\": \"<string>\",\n      \"userAgent\": {\n        \"key_0\": false\n      },\n      \"country\": \"<string>\",\n      \"action\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.formbricks.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c0e3418f-2029-449d-ae80-c57d86853b5f",
+    "name": "Formbricks Action Classes Client API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.\n\nContact Support:\n Name: Formbricks",
+      "type": "text/plain"
+    }
+  }
+}

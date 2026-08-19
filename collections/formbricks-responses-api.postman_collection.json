@@ -1,0 +1,918 @@
+{
+  "item": [
+    {
+      "id": "a5f539aa-56f1-4346-9e7b-234f5eca9344",
+      "name": "Responses",
+      "description": {
+        "content": "Create, query, and manage survey responses.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7e572732-cb67-4036-ae07-f85b4a1780fb",
+          "name": "List responses",
+          "request": {
+            "name": "List responses",
+            "description": {
+              "content": "Returns responses, optionally filtered by surveyId.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "management",
+                "responses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "surveyId",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Maximum number of items to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "Number of items to skip for pagination."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b742655-956c-4e1e-97f4-7a7f58b8470d",
+              "name": "A list of responses.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "surveyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1954-01-02T05:58:58.669Z\",\n      \"updatedAt\": \"2010-10-22T16:20:22.297Z\",\n      \"surveyId\": \"string\",\n      \"displayId\": \"string\",\n      \"singleUseId\": \"string\",\n      \"finished\": false,\n      \"endingId\": \"string\",\n      \"language\": \"string\",\n      \"data\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": \"string\"\n      },\n      \"variables\": {\n        \"key_0\": true,\n        \"key_1\": 9935,\n        \"key_2\": 8486\n      },\n      \"ttc\": {\n        \"key_0\": 2668.7158541741205,\n        \"key_1\": 297.9590894112294,\n        \"key_2\": 6659.245927531717,\n        \"key_3\": 9662.580862964423\n      },\n      \"meta\": {\n        \"source\": \"string\",\n        \"url\": \"string\",\n        \"userAgent\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"country\": \"string\",\n        \"action\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"createdAt\": \"1979-11-25T08:43:54.692Z\",\n      \"updatedAt\": \"1974-12-19T09:42:41.801Z\",\n      \"surveyId\": \"string\",\n      \"displayId\": \"string\",\n      \"singleUseId\": \"string\",\n      \"finished\": false,\n      \"endingId\": \"string\",\n      \"language\": \"string\",\n      \"data\": {\n        \"key_0\": 9015,\n        \"key_1\": 6220,\n        \"key_2\": false,\n        \"key_3\": \"string\"\n      },\n      \"variables\": {\n        \"key_0\": true\n      },\n      \"ttc\": {\n        \"key_0\": 6697.748714606281,\n        \"key_1\": 5737.629237816441,\n        \"key_2\": 5933.874796261743\n      },\n      \"meta\": {\n        \"source\": \"string\",\n        \"url\": \"string\",\n        \"userAgent\": {\n          \"key_0\": \"string\"\n        },\n        \"country\": \"string\",\n        \"action\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ddd8ba9-f877-47b7-b6c2-2d3bedd7b02b",
+              "name": "The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "surveyId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fca1df9a-5e7f-49e6-99d1-4dd46a14ab7c",
+          "name": "Create a response",
+          "request": {
+            "name": "Create a response",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "management",
+                "responses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 5344.207041868361,\n    \"key_2\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": 7398,\n      \"key_1\": 5405.452567548535,\n      \"key_2\": false\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "385cf945-38ba-4d2f-89c7-d7172afc3ece",
+              "name": "The created response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1897\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"createdAt\": \"2013-11-12T07:42:48.458Z\",\n    \"updatedAt\": \"1977-04-15T12:15:53.665Z\",\n    \"surveyId\": \"string\",\n    \"displayId\": \"string\",\n    \"singleUseId\": \"string\",\n    \"finished\": false,\n    \"endingId\": \"string\",\n    \"language\": \"string\",\n    \"data\": {\n      \"key_0\": true\n    },\n    \"variables\": {\n      \"key_0\": false,\n      \"key_1\": 1254.60923147814\n    },\n    \"ttc\": {\n      \"key_0\": 8138.740807626155,\n      \"key_1\": 4353.975681352179\n    },\n    \"meta\": {\n      \"source\": \"<string>\",\n      \"url\": \"<string>\",\n      \"userAgent\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": 8040\n      },\n      \"country\": \"<string>\",\n      \"action\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "892a3b84-66e3-4cb5-87eb-83a9109060f6",
+              "name": "The request body or parameters were invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1897\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5cf7d29c-7ef5-45a1-816b-64febcde0399",
+          "name": "Get a response",
+          "request": {
+            "name": "Get a response",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "management",
+                "responses",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "209c684e-be2c-4159-8abc-5ddc7830936d",
+              "name": "The requested response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"createdAt\": \"2013-11-12T07:42:48.458Z\",\n    \"updatedAt\": \"1977-04-15T12:15:53.665Z\",\n    \"surveyId\": \"string\",\n    \"displayId\": \"string\",\n    \"singleUseId\": \"string\",\n    \"finished\": false,\n    \"endingId\": \"string\",\n    \"language\": \"string\",\n    \"data\": {\n      \"key_0\": true\n    },\n    \"variables\": {\n      \"key_0\": false,\n      \"key_1\": 1254.60923147814\n    },\n    \"ttc\": {\n      \"key_0\": 8138.740807626155,\n      \"key_1\": 4353.975681352179\n    },\n    \"meta\": {\n      \"source\": \"<string>\",\n      \"url\": \"<string>\",\n      \"userAgent\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": 8040\n      },\n      \"country\": \"<string>\",\n      \"action\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b29d727-f9e0-4017-8d6c-fc441a08284c",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17376c03-cea0-4a10-bcd6-25b5340f8443",
+          "name": "Update a response",
+          "request": {
+            "name": "Update a response",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "management",
+                "responses",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 5344.207041868361,\n    \"key_2\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": 7398,\n      \"key_1\": 5405.452567548535,\n      \"key_2\": false\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6be77f07-5a0c-444d-b081-1fb6043018fa",
+              "name": "The updated response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1897\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"createdAt\": \"2013-11-12T07:42:48.458Z\",\n    \"updatedAt\": \"1977-04-15T12:15:53.665Z\",\n    \"surveyId\": \"string\",\n    \"displayId\": \"string\",\n    \"singleUseId\": \"string\",\n    \"finished\": false,\n    \"endingId\": \"string\",\n    \"language\": \"string\",\n    \"data\": {\n      \"key_0\": true\n    },\n    \"variables\": {\n      \"key_0\": false,\n      \"key_1\": 1254.60923147814\n    },\n    \"ttc\": {\n      \"key_0\": 8138.740807626155,\n      \"key_1\": 4353.975681352179\n    },\n    \"meta\": {\n      \"source\": \"<string>\",\n      \"url\": \"<string>\",\n      \"userAgent\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": 8040\n      },\n      \"country\": \"<string>\",\n      \"action\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d12ed66-1c55-4514-a074-ac751b775366",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"surveyId\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"finished\": false,\n  \"variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1897\n  },\n  \"ttc\": {\n    \"key_0\": \"<number>\",\n    \"key_1\": \"<number>\"\n  },\n  \"language\": \"<string>\",\n  \"meta\": {\n    \"source\": \"<string>\",\n    \"url\": \"<string>\",\n    \"userAgent\": {\n      \"key_0\": false,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"country\": \"<string>\",\n    \"action\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d92c844-8b0f-4019-946e-e8aeca23abbb",
+          "name": "Delete a response",
+          "request": {
+            "name": "Delete a response",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "management",
+                "responses",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "971cfb6d-ebe4-4940-90dc-adf9b6e16b61",
+              "name": "The deleted response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"createdAt\": \"2013-11-12T07:42:48.458Z\",\n    \"updatedAt\": \"1977-04-15T12:15:53.665Z\",\n    \"surveyId\": \"string\",\n    \"displayId\": \"string\",\n    \"singleUseId\": \"string\",\n    \"finished\": false,\n    \"endingId\": \"string\",\n    \"language\": \"string\",\n    \"data\": {\n      \"key_0\": true\n    },\n    \"variables\": {\n      \"key_0\": false,\n      \"key_1\": 1254.60923147814\n    },\n    \"ttc\": {\n      \"key_0\": 8138.740807626155,\n      \"key_1\": 4353.975681352179\n    },\n    \"meta\": {\n      \"source\": \"<string>\",\n      \"url\": \"<string>\",\n      \"userAgent\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": 8040\n      },\n      \"country\": \"<string>\",\n      \"action\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4ef8ade-cc40-4afa-8bd4-490568ceec6a",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "management",
+                    "responses",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": {\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://app.formbricks.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1865ea90-4371-4949-b8c1-574606dcf3dd",
+    "name": "Formbricks Action Classes Responses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.\n\nContact Support:\n Name: Formbricks",
+      "type": "text/plain"
+    }
+  }
+}

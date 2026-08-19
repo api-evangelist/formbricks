@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Formbricks Action Classes Client API",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Client",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a display",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.formbricks.com/api/v1/client/:environmentId/displays",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Public Client API. Marks a survey as displayed for a contact, optionally linking the display to a later response. No API key required."
+        },
+        {
+          "info": {
+            "name": "Create a response (Client API)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.formbricks.com/api/v1/client/:environmentId/responses",
+            "params": [
+              {
+                "name": "environmentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Public Client API used by survey front-ends to submit a response. No API key required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
