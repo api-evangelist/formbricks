@@ -26,6 +26,12 @@ tags:
 - Experience Management
 - Feedback
 - Forms
+- Open-Source
+tags_raw:
+- Surveys
+- Experience Management
+- Feedback
+- Forms
 - Open Source
 created: '2026-06-20'
 modified: '2026-06-20'
@@ -63,6 +69,8 @@ apis:
   humanURL: https://formbricks.com/docs/api-v2-reference
   baseURL: https://app.formbricks.com/api
   tags:
+  - Clients
+  tags_raw:
   - Client
   properties:
   - type: OpenAPI
@@ -193,6 +201,8 @@ apis:
   humanURL: https://formbricks.com/docs/api-v2-reference
   baseURL: https://app.formbricks.com/api
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
