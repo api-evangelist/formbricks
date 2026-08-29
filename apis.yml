@@ -7,6 +7,18 @@ description: Formbricks is an open-source experience management and survey platf
   and manage surveys, collect and query responses, manage contacts and their
   attributes, and wire up webhooks, with a Public Client API (no auth) for survey
   delivery and a Management API authenticated with an x-api-key header.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
