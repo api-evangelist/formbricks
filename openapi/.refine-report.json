@@ -1,13 +1,7 @@
 {
   "provider": "formbricks",
   "sources": [
-    "formbricks-action-classes-api-openapi.yml",
-    "formbricks-client-api-openapi.yml",
-    "formbricks-contacts-api-openapi.yml",
-    "formbricks-me-api-openapi.yml",
-    "formbricks-responses-api-openapi.yml",
-    "formbricks-surveys-api-openapi.yml",
-    "formbricks-webhooks-api-openapi.yml"
+    "_original/formbricks-openapi.yml"
   ],
   "outputs": [
     "formbricks-action-classes-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "formbricks-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "formbricks-action-classes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "formbricks-client-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "formbricks-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "formbricks-me-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "formbricks-responses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "formbricks-surveys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "formbricks-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

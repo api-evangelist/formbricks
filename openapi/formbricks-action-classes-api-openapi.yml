@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Formbricks Action Classes API
   description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
@@ -88,22 +88,17 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ActionClass:
+    ActionClassInput:
       type: object
+      required:
+      - name
+      - type
+      - environmentId
       properties:
-        id:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
         name:
           type: string
         description:
           type: string
-          nullable: true
         type:
           type: string
           enum:
@@ -121,17 +116,23 @@ components:
         details:
           type: object
           additionalProperties: true
-    ActionClassInput:
+    ActionClass:
       type: object
-      required:
-      - name
-      - type
-      - environmentId
       properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
         name:
           type: string
         description:
-          type: string
+          type:
+          - string
+          - 'null'
         type:
           type: string
           enum:

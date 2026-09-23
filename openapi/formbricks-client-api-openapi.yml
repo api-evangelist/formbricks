@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Formbricks Action Classes Client API
+  title: Formbricks Client API
   description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
   termsOfService: https://formbricks.com/terms
   contact:
@@ -115,19 +115,23 @@ components:
         surveyId:
           type: string
         displayId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         singleUseId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         finished:
           type: boolean
         endingId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         language:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         data:
           type: object
           additionalProperties: true

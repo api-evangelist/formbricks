@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Formbricks Action Classes Contacts API
+  title: Formbricks Contacts API
   description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
   termsOfService: https://formbricks.com/terms
   contact:
@@ -162,52 +162,7 @@ paths:
                   data:
                     $ref: '#/components/schemas/ContactAttributeKey'
 components:
-  responses:
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Skip:
-      name: skip
-      in: query
-      description: Number of items to skip for pagination.
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        default: 10
   schemas:
-    ContactAttributeKey:
-      type: object
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-        name:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        type:
-          type: string
-        environmentId:
-          type: string
     Contact:
       type: object
       properties:
@@ -235,6 +190,53 @@ components:
         details:
           type: object
           additionalProperties: true
+    ContactAttributeKey:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+        environmentId:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
   securitySchemes:
     apiKeyAuth:
       type: apiKey

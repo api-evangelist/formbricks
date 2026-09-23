@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Formbricks Action Classes Surveys API
+  title: Formbricks Surveys API
   description: REST API for Formbricks, the open-source experience management and survey platform. The Management API (paths under /v1/management and /v2/management) requires a personal API key passed in the x-api-key header and gives full access to surveys, responses, contacts, contact attribute keys, action classes, webhooks, and account info. The Public Client API (/v1/client/{environmentId}) is unauthenticated and is used by survey front-ends to create displays and responses.
   termsOfService: https://formbricks.com/terms
   contact:
@@ -172,8 +172,8 @@ paths:
                           format: uri
 components:
   responses:
-    BadRequest:
-      description: The request body or parameters were invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -184,33 +184,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request body or parameters were invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Skip:
-      name: skip
-      in: query
-      description: Number of items to skip for pagination.
-      schema:
-        type: integer
-        default: 0
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        default: 10
-    SurveyId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
     Survey:
       type: object
@@ -292,6 +271,27 @@ components:
         details:
           type: object
           additionalProperties: true
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    SurveyId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
   securitySchemes:
     apiKeyAuth:
       type: apiKey
