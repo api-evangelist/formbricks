@@ -171,26 +171,65 @@ paths:
                           type: string
                           format: uri
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body or parameters were invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+    SurveyId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    SurveyInput:
+      type: object
+      required:
+      - name
+      - type
+      - environmentId
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - link
+          - app
+        environmentId:
+          type: string
+        status:
+          type: string
+          enum:
+          - draft
+          - inProgress
+          - paused
+          - completed
+        questions:
+          type: array
+          items:
+            type: object
     Survey:
       type: object
       properties:
@@ -234,64 +273,25 @@ components:
           type: array
           items:
             type: object
-    SurveyInput:
-      type: object
-      required:
-      - name
-      - type
-      - environmentId
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - link
-          - app
-        environmentId:
-          type: string
-        status:
-          type: string
-          enum:
-          - draft
-          - inProgress
-          - paused
-          - completed
-        questions:
-          type: array
-          items:
-            type: object
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        default: 10
-    SurveyId:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-    Skip:
-      name: skip
-      in: query
-      description: Number of items to skip for pagination.
-      schema:
-        type: integer
-        default: 0
+  responses:
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -143,25 +143,21 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body or parameters were invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
   schemas:
     ResponseMeta:
       type: object
@@ -177,6 +173,16 @@ components:
           type: string
         action:
           type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
     Response:
       type: object
       properties:
@@ -247,31 +253,25 @@ components:
           type: string
         meta:
           $ref: '#/components/schemas/ResponseMeta'
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        default: 10
-    Skip:
-      name: skip
-      in: query
-      description: Number of items to skip for pagination.
-      schema:
-        type: integer
-        default: 0
+  responses:
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

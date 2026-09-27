@@ -162,24 +162,22 @@ paths:
                   data:
                     $ref: '#/components/schemas/ContactAttributeKey'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
+    Skip:
+      name: skip
+      in: query
+      description: Number of items to skip for pagination.
+      schema:
+        type: integer
+        default: 0
   schemas:
-    Contact:
-      type: object
-      properties:
-        id:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        environmentId:
-          type: string
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
     Error:
       type: object
       properties:
@@ -209,6 +207,23 @@ components:
           type: string
         environmentId:
           type: string
+    Contact:
+      type: object
+      properties:
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        environmentId:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -222,21 +237,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        default: 10
-    Skip:
-      name: skip
-      in: query
-      description: Number of items to skip for pagination.
-      schema:
-        type: integer
-        default: 0
   securitySchemes:
     apiKeyAuth:
       type: apiKey
