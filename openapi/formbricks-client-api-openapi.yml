@@ -101,31 +101,6 @@ components:
           type: string
         action:
           type: string
-    ResponseInput:
-      type: object
-      required:
-      - surveyId
-      - data
-      properties:
-        surveyId:
-          type: string
-        finished:
-          type: boolean
-          default: false
-        data:
-          type: object
-          additionalProperties: true
-        variables:
-          type: object
-          additionalProperties: true
-        ttc:
-          type: object
-          additionalProperties:
-            type: number
-        language:
-          type: string
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
     Response:
       type: object
       properties:
@@ -169,6 +144,31 @@ components:
           additionalProperties:
             type: number
           description: Time-to-complete in ms per question.
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
+    ResponseInput:
+      type: object
+      required:
+      - surveyId
+      - data
+      properties:
+        surveyId:
+          type: string
+        finished:
+          type: boolean
+          default: false
+        data:
+          type: object
+          additionalProperties: true
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+        language:
+          type: string
         meta:
           $ref: '#/components/schemas/ResponseMeta'
   securitySchemes:

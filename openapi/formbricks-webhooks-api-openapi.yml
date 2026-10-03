@@ -109,6 +109,29 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    WebhookInput:
+      type: object
+      required:
+      - url
+      - triggers
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        triggers:
+          type: array
+          items:
+            type: string
+            enum:
+            - responseCreated
+            - responseUpdated
+            - responseFinished
+        surveyIds:
+          type: array
+          items:
+            type: string
     Error:
       type: object
       properties:
@@ -155,29 +178,6 @@ components:
           items:
             type: string
           description: Surveys the webhook is scoped to; empty applies to all surveys.
-    WebhookInput:
-      type: object
-      required:
-      - url
-      - triggers
-      properties:
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        triggers:
-          type: array
-          items:
-            type: string
-            enum:
-            - responseCreated
-            - responseUpdated
-            - responseFinished
-        surveyIds:
-          type: array
-          items:
-            type: string
   responses:
     BadRequest:
       description: The request body or parameters were invalid.
