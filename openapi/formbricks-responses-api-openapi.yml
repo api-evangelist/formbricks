@@ -143,26 +143,32 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: The API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request body or parameters were invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    ResponseInput:
+      type: object
+      required:
+      - surveyId
+      - data
+      properties:
+        surveyId:
+          type: string
+        finished:
+          type: boolean
+          default: false
+        data:
+          type: object
+          additionalProperties: true
+        variables:
+          type: object
+          additionalProperties: true
+        ttc:
+          type: object
+          additionalProperties:
+            type: number
+        language:
+          type: string
+        meta:
+          $ref: '#/components/schemas/ResponseMeta'
     Error:
       type: object
       properties:
@@ -232,39 +238,26 @@ components:
           description: Time-to-complete in ms per question.
         meta:
           $ref: '#/components/schemas/ResponseMeta'
-    ResponseInput:
-      type: object
-      required:
-      - surveyId
-      - data
-      properties:
-        surveyId:
-          type: string
-        finished:
-          type: boolean
-          default: false
-        data:
-          type: object
-          additionalProperties: true
-        variables:
-          type: object
-          additionalProperties: true
-        ttc:
-          type: object
-          additionalProperties:
-            type: number
-        language:
-          type: string
-        meta:
-          $ref: '#/components/schemas/ResponseMeta'
+  responses:
+    Unauthorized:
+      description: The API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body or parameters were invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of items to return.
-      schema:
-        type: integer
-        default: 10
     Skip:
       name: skip
       in: query
@@ -272,6 +265,13 @@ components:
       schema:
         type: integer
         default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of items to return.
+      schema:
+        type: integer
+        default: 10
   securitySchemes:
     apiKeyAuth:
       type: apiKey
