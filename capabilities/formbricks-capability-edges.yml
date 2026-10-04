@@ -1,0 +1,46 @@
+slug: formbricks
+provider: Formbricks
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Surveys
+  spec_file: formbricks-surveys-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.85
+  evidence: POST /v2/management/surveys  createSurvey  Create a survey; GET .../contact-links/segments/{segmentId}  Generate
+    single-use survey links for a segment
+  reason: Operations create, update and distribute surveys to contact segments — directly the 'Surveys,
+    NPS, voice-of-customer programmes' sub-capability of Customer Feedback Management.
+- tag: Responses
+  spec_file: formbricks-responses-api-openapi.yml
+  capability_id: BC-430.50
+  capability_id_l1: BC-430
+  capability_name: Customer Feedback Management
+  confidence: 0.8
+  evidence: GET /v2/management/responses  getResponses  List responses
+  reason: CRUD and querying of survey responses on an experience-management/survey platform ('a privacy-first
+    Typeform / Qualtrics alternative'), which realises survey and voice-of-customer feedback management.
+- tag: Webhooks
+  spec_file: formbricks-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.8
+  evidence: GET /v1/webhooks  getWebhooks  List webhooks; POST /v1/webhooks  createWebhook  Create a webhook;
+    DELETE /v1/webhooks/{id}  deleteWebhook  Delete a webhook
+  reason: The operations are purely the lifecycle of outbound webhook subscriptions (list/create/get/delete)
+    exposed to integrating developers, which is exactly BC-4270.80 Webhook & Event Subscription Management.
+    No survey/experience-management semantics appear in this tag's surface, so the broader survey capability
+    is not the right read.

@@ -243,6 +243,9 @@ apis:
   - type: APIReference
     url: https://formbricks.com/docs/api-v2-reference/management-api--webhooks/get-webhooks
 common:
+- type: CapabilityMap
+  url: capabilities/formbricks-capability-edges.yml
+  name: Formbricks Business Capability Map
 - type: AgenticAccess
   url: agentic-access/formbricks-agentic-access.yml
 - type: DomainSecurity
