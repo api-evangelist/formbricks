@@ -1,0 +1,7 @@
+# harvested from https://github.com/formbricks/hub/blob/200c1ac9a0d67e7f5333cd8ad702d6dde1ed5305/.spectral.yaml on 2026-10-09 — a Spectral ruleset published in the provider's own GitHub repository (formbricks/hub); found by GitHub code search, fetched verbatim
+x-method: harvested
+x-stamped: 2026-10-09
+x-source-url: https://github.com/formbricks/hub/blob/200c1ac9a0d67e7f5333cd8ad702d6dde1ed5305/.spectral.yaml
+extends: spectral:oas
+rules:
+  oas3-unused-component: off

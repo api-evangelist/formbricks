@@ -268,6 +268,8 @@ common:
   url: finops/formbricks-finops.yml
 - url: https://formbricks.com/blog
   type: Blog
+- type: SpectralRules
+  url: https://github.com/formbricks/hub/blob/200c1ac9a0d67e7f5333cd8ad702d6dde1ed5305/.spectral.yaml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
