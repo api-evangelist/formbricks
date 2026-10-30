@@ -1,4 +1,4 @@
-# Formbricks (formbricks)
+# Formbricks
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,144 +66,134 @@
 
 Formbricks is an open-source experience management and survey platform (a privacy-first Typeform / Qualtrics alternative). Its REST API lets you create and manage surveys, collect and query responses, manage contacts and their attributes, and wire up webhooks, with a Public Client API (no auth) for survey delivery and a Management API authenticated with an x-api-key header.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/formbricks/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/formbricks/refs/heads/main/apis.yml)
+**Areas:** Surveys · Experience Management · Feedback · Forms · Open Source
 
-## Tags
+## Formbricks on APIs.io
 
-- Surveys
-- Experience Management
-- Feedback
-- Forms
-- Open Source
+Everything profiled for Formbricks is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/formbricks/](https://apis.io/providers/formbricks/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (7)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Formbricks Action Classes API](https://apis.io/apis/formbricks/formbricks-action-classes-api/) — Define code and no-code actions that trigger in-product surveys.
+- [Formbricks Client API](https://apis.io/apis/formbricks/formbricks-client-api/) — Public unauthenticated Client API used by survey front-ends.
+- [Formbricks Contacts API](https://apis.io/apis/formbricks/formbricks-contacts-api/) — Manage contacts and contact attribute keys.
+- [Formbricks Me API](https://apis.io/apis/formbricks/formbricks-me-api/) — Account and environment information for an API key.
+- [Formbricks Responses API](https://apis.io/apis/formbricks/formbricks-responses-api/) — Create, query, and manage survey responses.
+- [Formbricks Surveys API](https://apis.io/apis/formbricks/formbricks-surveys-api/) — Create and manage surveys.
+- [Formbricks Webhooks API](https://apis.io/apis/formbricks/formbricks-webhooks-api/) — Real-time HTTP notifications for response events.
 
-## APIs
+### Published properties
 
-### Formbricks Surveys API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-List, create, retrieve, update, and delete surveys, plus generate single-use survey links, through the Management API under /api/v2/management/surveys.
+#### Agentic access (1)
 
-- **Human URL:** [https://formbricks.com/docs/api-v2-reference](https://formbricks.com/docs/api-v2-reference)
-- **Base URL:** `https://app.formbricks.com/api`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Formbricks Agentic Access](https://apis.io/agentic-access/formbricks/formbricks-agentic-access/)
 
-- Surveys
-- Forms
-- Management
+#### Collections (8)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://formbricks.com/docs/api-reference/rest-api)
-- [API Reference](https://formbricks.com/docs/api-v2-reference)
-- [OpenAPI](openapi/formbricks-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/formbricks.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/formbricks.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/formbricks/formbricks)
+- [Formbricks API](https://apis.io/collections/formbricks/open-formbricks/)
+- [Formbricks Action Classes API](https://apis.io/collections/formbricks/open-formbricks-action-classes-api/)
+- [Formbricks Action Classes Client API](https://apis.io/collections/formbricks/open-formbricks-client-api/)
+- [Formbricks Action Classes Contacts API](https://apis.io/collections/formbricks/open-formbricks-contacts-api/)
+- [Formbricks Action Classes Me API](https://apis.io/collections/formbricks/open-formbricks-me-api/)
+- [Formbricks Action Classes Responses API](https://apis.io/collections/formbricks/open-formbricks-responses-api/)
+- [Formbricks Action Classes Surveys API](https://apis.io/collections/formbricks/open-formbricks-surveys-api/)
+- [Formbricks Action Classes Webhooks API](https://apis.io/collections/formbricks/open-formbricks-webhooks-api/)
 
-### Formbricks Responses API
+#### Governance rules (1)
 
-Create, list, filter by survey, update, and delete survey responses. Responses carry per-question data, time-to-complete (ttc), finished state, and meta (source, url, userAgent, country).
+Spectral rulesets for the provider's contracts.
 
-- **Human URL:** [https://formbricks.com/docs/api-v2-reference/management-api--responses/get-responses](https://formbricks.com/docs/api-v2-reference/management-api--responses/get-responses)
-- **Base URL:** `https://app.formbricks.com/api`
+- [Formbricks — hub rules](https://apis.io/rules/formbricks/formbricks-hub-spectral-rules/)
 
-#### Tags
+#### Security (2)
 
-- Responses
-- Feedback
-- Data
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Formbricks Authentication](https://apis.io/security/formbricks/formbricks-authentication/)
+- [Formbricks Domain Security](https://apis.io/security/formbricks/formbricks-domain-security/)
 
-- [Documentation](https://formbricks.com/docs/api-v2-reference/management-api--responses/create-a-response)
-- [API Reference](https://formbricks.com/docs/api-v2-reference)
-- [OpenAPI](openapi/formbricks-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/formbricks.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/formbricks.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/formbricks/formbricks)
+#### Plans and pricing (1)
 
-### Formbricks Contacts and Attributes API
+Published plans, tiers and prices.
 
-List and retrieve contacts, bulk-upsert contacts with their attributes, and manage contact attribute keys that define the segmentation schema for an environment.
+- [Formbricks Plans Pricing](https://apis.io/plans/formbricks/formbricks-plans-pricing/)
 
-- **Human URL:** [https://formbricks.com/docs/api-v2-reference](https://formbricks.com/docs/api-v2-reference)
-- **Base URL:** `https://app.formbricks.com/api`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Contacts
-- Attributes
-- Segmentation
+- [Formbricks Rate Limits](https://apis.io/rate-limits/formbricks/formbricks-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://formbricks.com/docs/api-reference/rest-api)
-- [API Reference](https://formbricks.com/docs/api-v2-reference)
-- [OpenAPI](openapi/formbricks-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/formbricks.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/formbricks.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/formbricks/formbricks)
+What the API costs to run, by operation.
 
-### Formbricks Webhooks API
+- [Formbricks Finops](https://apis.io/finops/formbricks/formbricks-finops/)
 
-List, create, and delete webhooks that fire real-time HTTP notifications on responseCreated, responseUpdated, and responseFinished triggers, optionally scoped to specific surveyIds.
+## Where to find this API
 
-- **Human URL:** [https://formbricks.com/docs/developer-docs/webhooks](https://formbricks.com/docs/developer-docs/webhooks)
-- **Base URL:** `https://app.formbricks.com/api`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://formbricks.com/docs/developer-docs/webhooks)
-- [API Reference](https://formbricks.com/docs/api-v2-reference/management-api--webhooks/get-webhooks)
-- [OpenAPI](openapi/formbricks-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/formbricks.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/formbricks.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/formbricks/formbricks)
-
-### Formbricks Management API
-
-Account and configuration surface - the Me endpoint that returns the environment an API key belongs to, and Action Class management for defining the code and no-code actions that trigger in-product surveys.
-
-- **Human URL:** [https://formbricks.com/docs/api-v2-reference](https://formbricks.com/docs/api-v2-reference)
-- **Base URL:** `https://app.formbricks.com/api`
-
-#### Tags
-
-- Management
-- Account
-- Action Classes
-
-#### Properties
-
-- [Documentation](https://formbricks.com/docs/api-reference/rest-api)
-- [API Reference](https://formbricks.com/docs/api-v2-reference)
-- [OpenAPI](openapi/formbricks-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/formbricks.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/formbricks.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [GitHub](https://github.com/formbricks/formbricks)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/formbricks)
-- [LinkedIn](https://www.linkedin.com/company/formbricks)
 - [Website](https://www.formbricks.com)
 - [Documentation](https://formbricks.com/docs)
-- [Plans](plans/formbricks-plans-pricing.yml)
-- [Rate Limits](rate-limits/formbricks-rate-limits.yml)
-- [Fin Ops](finops/formbricks-finops.yml)
+- [Blog](https://formbricks.com/blog)
+- [GitHub](https://github.com/formbricks)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 32.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 49.7 |
+| Contract governance | 15.2 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/formbricks/](https://apis.io/providers/formbricks/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Formbricks: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/formbricks/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
